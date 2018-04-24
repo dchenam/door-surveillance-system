@@ -29,11 +29,15 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x.h"
+#include "stm32f10x_exti.h"	 
+#include "stm32f10x_gpio.h"	
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
+
+extern u8 CAMERA_BUSY;
 
 void NMI_Handler(void);
 void HardFault_Handler(void);
@@ -44,6 +48,10 @@ void SVC_Handler(void);
 void DebugMon_Handler(void);
 void PendSV_Handler(void);
 void SysTick_Handler(void);
+void EXTI4_IRQHandler(void);
+void RTC_IRQHandler(void);
+void EXTI0_IRQHandler(void);
+void EXTI1_IRQHandler(void);
 
 #ifdef __cplusplus
 }
