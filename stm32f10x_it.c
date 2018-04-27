@@ -25,7 +25,9 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x_it.h"
-#include "./ov7725/bsp_ov7725.h"
+#include "./ov7725/ov7725.h"
+#include "./sdio/sdio_sdcard.h"
+
 extern uint8_t Ov7725_vsync;
 u8 CAMERA_BUSY = 0;
 
@@ -140,28 +142,42 @@ void PendSV_Handler(void)
 void SysTick_Handler(void)
 {
 }
-void OV7725_VSYNC_EXTI_INT_FUNCTION ( void )
+void OV7725_VSYNC_EXTI_INT_FUNCTION(void)
 {
-    if ( EXTI_GetITStatus(OV7725_VSYNC_EXTI_LINE) != RESET ) 	//??E?EXTI_Line0??·???????E?????????NVIC 
+  if (EXTI_GetITStatus(OV7725_VSYNC_EXTI_LINE) != RESET) //??E?EXTI_Line0??ï¿½???????E?????????NVIC
+  {
+    if (Ov7725_vsync == 0)
     {
-        if( Ov7725_vsync == 0 )
-        {
-            FIFO_WRST_L(); 	                      //????'FIFO?(????from?????)??E??
-            FIFO_WE_H();	                        //????'FIFO????E
-            
-            Ov7725_vsync = 1;	   	
-            FIFO_WE_H();                          //'FIFO????E
-            FIFO_WRST_H();                        //?????FIFO?(????from?????)??E??
-        }
-        else if( Ov7725_vsync == 1 )
-        {
-            FIFO_WE_L();                          //????'FIFO????
-            Ov7725_vsync = 2;
-        }        
-        EXTI_ClearITPendingBit(OV7725_VSYNC_EXTI_LINE);		    //???EXTI_Line0??·????E??        
-    }    
+      FIFO_WRST_L(); //????'FIFO?(????from?????)??E??
+      FIFO_WE_H();   //????'FIFO????E
+
+      Ov7725_vsync = 1;
+      FIFO_WE_H();   //'FIFO????E
+      FIFO_WRST_H(); //?????FIFO?(????from?????)??E??
+    }
+    else if (Ov7725_vsync == 1)
+    {
+      FIFO_WE_L(); //????'FIFO????
+      Ov7725_vsync = 2;
+    }
+    EXTI_ClearITPendingBit(OV7725_VSYNC_EXTI_LINE); //???EXTI_Line0??ï¿½????E??
+  }
 }
 
+void SDIO_IRQHandler(void)
+{
+  /* Process All SDIO Interrupt Sources */
+  SD_ProcessIRQSrc();
+}
+
+void EXTI1_IRQHandler(void)
+{
+  if (EXTI_GetITStatus(EXTI_Line1) != RESET)
+  {
+    //wifi_ap_search();
+    EXTI_ClearITPendingBit(EXTI_Line1);
+  }
+}
 /******************************************************************************/
 /*                 STM32F10x Peripherals Interrupt Handlers                   */
 /*  Add here the Interrupt Handler for the used peripheral(s) (PPP), for the  */
@@ -180,7 +196,6 @@ void OV7725_VSYNC_EXTI_INT_FUNCTION ( void )
 
 /**
   * @}
-  */ 
-
+  */
 
 /******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE****/
