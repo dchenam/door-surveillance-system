@@ -6,6 +6,8 @@
 #include "led/led.h"
 #include "bmp/bmp.h"
 #include "FATFS/ff.h"
+#include "gui/gui.h"
+
 
 #define ITM_Port8(n) (*((volatile unsigned char *)(0xE0000000 + 4 * n)))
 #define ITM_Port16(n) (*((volatile unsigned short *)(0xE0000000 + 4 * n)))
@@ -24,6 +26,7 @@ FRESULT res_sd;
 
 int main(void)
 {
+
 	LCD_INIT();
 	LED_GPIO_Config();
 	button_init();
@@ -49,13 +52,15 @@ int main(void)
 	OV7725_Window_Set(cam_mode.cam_sx, cam_mode.cam_sy, cam_mode.cam_width, cam_mode.cam_height, cam_mode.QVGA_VGA);
 	ILI9341_GramScan(cam_mode.lcd_scan);
 
-	//LCD_DrawString(100, 0, "OV7725 initialize success!");
+	
+		
+	gui_init();
 
 	Ov7725_vsync = 0;
 
 	while (1)
 	{
-		if (read_button(BUTTON1) == 1)
+		if (read_button(BUTTON1) == 1 || read_button(BUTTON1) == 3 )
 		{
 			if (Ov7725_vsync == 2)
 			{
@@ -69,7 +74,7 @@ int main(void)
 			}
 			LED_PURPLE
 		}
-		if (read_button(BUTTON2) == 1)
+		if (read_button(BUTTON2) == 1 || read_button(BUTTON1) == 4)
 		{
 
 			static uint8_t name_count = 0;
@@ -84,6 +89,12 @@ int main(void)
 			{
 				LED_GREEN;
 			}
+		}
+		if (read_button(BUTTON2) == 5)
+		{
+
+		gui_init();
+			
 		}
 	}
 }

@@ -489,6 +489,63 @@ void LCD_DrawString(uint16_t usC, uint16_t usP, const char *pStr)
 		usC += WIDTH_EN_CHAR;
 	}
 }
+void LCD_DrawCharwc ( uint16_t usC, uint16_t usP, const char cChar , uint16_t txtColor, uint16_t bkgndColor)
+{
+	uint8_t ucTemp, ucRelativePositon, ucPage, ucColumn;
+
+	
+	ucRelativePositon = cChar - ' ';
+	
+	LCD_OpenWindow ( usC, usP, WIDTH_EN_CHAR, HEIGHT_EN_CHAR );
+	
+	LCD_Write_Cmd ( CMD_SetPixel );	
+	
+	for ( ucPage = 0; ucPage < HEIGHT_EN_CHAR; ucPage ++ )
+	{
+		ucTemp = ucAscii_1608 [ ucRelativePositon ] [ ucPage ];
+		
+		for ( ucColumn = 0; ucColumn < WIDTH_EN_CHAR; ucColumn ++ )
+		{
+			if ( ucTemp & 0x01 )
+				LCD_Write_Data ( txtColor );
+			
+			else
+				LCD_Write_Data (  bkgndColor );								
+			
+			ucTemp >>= 1;		
+			
+		}
+		
+	}
+	
+}
+
+void LCD_DrawStringwc ( uint16_t usC, uint16_t usP, const char * pStr, uint16_t txtColor, uint16_t bkgndColor )
+{
+	while ( * pStr != '\0' )
+	{
+		if ( ( usC - LCD_DispWindow_Start_COLUMN + WIDTH_EN_CHAR ) > LCD_DispWindow_COLUMN )
+		{
+			usC = LCD_DispWindow_Start_COLUMN;
+			usP += HEIGHT_EN_CHAR;
+		}
+		
+		if ( ( usP - LCD_DispWindow_Start_PAGE + HEIGHT_EN_CHAR ) > LCD_DispWindow_PAGE )
+		{
+			usC = LCD_DispWindow_Start_COLUMN;
+			usP = LCD_DispWindow_Start_PAGE;
+		}
+		
+		LCD_DrawCharwc ( usC, usP, * pStr, txtColor, bkgndColor);
+		
+		pStr ++;
+		
+		usC += WIDTH_EN_CHAR;
+		
+	}
+	
+}
+
 
 //Task 2
 void LCD_DrawDot(uint16_t usCOLUMN, uint16_t usPAGE, uint16_t usColor)

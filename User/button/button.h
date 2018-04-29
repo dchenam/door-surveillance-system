@@ -17,7 +17,10 @@ typedef struct{
 
 typedef enum{
 	BUTTON1,
-	BUTTON2
+	BUTTON2,
+	BUTTON3,
+	BUTTON4,
+	BUTTON5
 }BUTTON_ID;
 
 void button_init(void);

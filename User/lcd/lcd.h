@@ -75,6 +75,8 @@ void ILI9341_GramScan(uint8_t ucOtion);
 #define BRED 0xF81F
 #define GRED 0xFFE0
 #define GBLUE 0x07FF
+#define	BCOLOR 0xC618
+#define FADED 0x632C
 
 #define CMD_Set_COLUMN 0x2A
 #define CMD_Set_PAGE 0x2B
@@ -91,6 +93,8 @@ void LCD_Clear(uint16_t usC, uint16_t usP, uint16_t usWidth, uint16_t usHeight, 
 void LCD_DrawDot(uint16_t usC, uint16_t usP, uint16_t usColor);
 uint16_t LCD_GetPointPixel(uint16_t usC, uint16_t usP);
 void LCD_DrawLine(uint16_t usC1, uint16_t usP1, uint16_t usC2, uint16_t usP2, uint16_t usColor);
+void LCD_DrawCharwc ( uint16_t usC, uint16_t usP, const char cChar, uint16_t txtColor, uint16_t bkgndColor);
+void LCD_DrawStringwc ( uint16_t usC, uint16_t usP, const char * pStr, uint16_t txtColor, uint16_t bkgndColor);
 void LCD_DrawChar(uint16_t usC, uint16_t usP, const char cChar);
 void LCD_DrawString(uint16_t usC, uint16_t usP, const char *pStr);
 void LCD_DrawCircle(uint16_t usC, uint16_t usP, uint16_t R, uint16_t usColor);

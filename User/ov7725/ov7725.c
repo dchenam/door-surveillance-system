@@ -209,17 +209,17 @@ ErrorStatus OV7725_Init(void)
 {
 	uint16_t i = 0;
 	uint8_t Sensor_IDCode = 0;
-	LCD_DrawString(0, 0, "ov7725 Register Config Start");
+	//LCD_DrawString(0, 0, "ov7725 Register Config Start");
 
 	if (0 == SCCB_WriteByte(0x12, 0x80))
 	{
-		LCD_DrawString(100, 10, "sccb write data error");
+		//LCD_DrawString(100, 10, "sccb write data error");
 		return ERROR;
 	}
 
 	if (0 == SCCB_ReadByte(&Sensor_IDCode, 1, 0x0b))
 	{
-		LCD_DrawString(100, 20, "read id faild");
+		//LCD_DrawString(100, 20, "read id faild");
 		return ERROR;
 	}
 
@@ -237,7 +237,7 @@ ErrorStatus OV7725_Init(void)
 	{
 		return ERROR;
 	}
-	LCD_DrawString(0, 50, "ov7725 Register Config Success");
+	//LCD_DrawString(0, 50, "ov7725 Register Config Success");
 
 	return SUCCESS;
 }

@@ -1,9 +1,9 @@
 #include "button.h"
 
-static BUTTON buttons[3];
+static BUTTON buttons[6];
 
-GPIO_TypeDef* button_ports[3] = {GPIOA, GPIOC};
-uc16 button_pins[3] = {GPIO_Pin_0, GPIO_Pin_13};
+GPIO_TypeDef* button_ports[6] = {GPIOA, GPIOC, GPIOA, GPIOA, GPIOA};
+uc16 button_pins[6] = {GPIO_Pin_0, GPIO_Pin_13,GPIO_Pin_4,GPIO_Pin_5,GPIO_Pin_6};
 
 /**
   * @brief  Initialization of button GPIO pins
@@ -21,7 +21,7 @@ void button_init() {
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13;
 	GPIO_Init(GPIOC, &GPIO_InitStructure);
 	
-	for (u8 i=0; i<3; i++) {
+	for (u8 i=0; i<6; i++) {
 		buttons[i].port = button_ports[i];
 		buttons[i].pin = button_pins[i];
 		buttons[i].state = 1;
@@ -45,7 +45,7 @@ u8 read_button(BUTTON_ID id) {
   * @retval None
   */
 void button_update() {
-	for (u8 i=0; i<3; i++) {
+	for (u8 i=0; i<6; i++) {
 		u8 cur_state = read_button((BUTTON_ID)i);
 		if (!cur_state && buttons[i].state && buttons[i].has_keydown_listener)
 			(*buttons[i].keydown_listener)();
