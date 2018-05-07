@@ -28,11 +28,15 @@ extern uint32_t timer_hr, timer_min, timer_sec;
 void gui_init(void);
 void draw_toolbar(void);
 void draw_mainmenu(void);
+void draw_homenav(void);
 void draw_toggle_switch(u8 state);
 void update_toolbar(void);
 void toggle_switch();
 void go_camera_mode(void);
 void show_menu(void);
+void camera_navbar(void);
+void images_menu(void);
+void image_navbar(void);
 //void wifi_temp_update(u8 key);
 //void wifi_ap_connect_test(uint16_t y_coord);
 

@@ -21,6 +21,7 @@ void gui_init(void) {
 	LCD_Clear(0, 0, 240, 320, BACKGROUND);
 	draw_toolbar();
 	draw_mainmenu();
+	draw_homenav();
 	
 }
 
@@ -34,6 +35,25 @@ void draw_toolbar() {
 		}
 	}
 	update_toolbar(); // For time and checking if its camera mode
+}
+
+
+void draw_homenav() {
+	static uint16_t i;
+	static uint16_t j;
+	for (i = 0; i < 240; i++) {
+		for (j = 300; j < 320; j++) {
+			LCD_DrawDot(i, j, BLACK);
+		}
+	}
+	//LCD_DrawString(10,310,"Camera");
+	LCD_DrawStringwc(0, 300, "Camera      Home       Faces",YELLOW,BLACK);
+
+	//home on middle
+	//LCD_DrawStringwc(110, 305, "Home",YELLOW,BLACK);
+
+	//up arrow on right
+	//LCD_DrawStringwc(220, 305, "Faces",YELLOW,BLACK);
 }
 
 	
@@ -97,6 +117,12 @@ void draw_mainmenu() {
     fill_color_rect(216, 81, 3, 3, BLACK);
     
 
+	//camera icon on the left
+
+	//home icon on the middle
+
+	//photos icon on the right
+
 	
 	
     //add_button(10, 220, 60, 30, "UPDATE");
@@ -146,7 +172,42 @@ void go_camera_mode(void) {
 	// camera_time = RTC_GetCounter() + 5;
 	// if (camera_time > 0x0001517F)
 	// 	camera_time = camera_time - 0x0001517F;
+	
 }
+
+void camera_navbar(void)
+{
+	// draw home icon in the middle
+
+	//screenshot icon in the right
+	for (int i = 0; i < 240; i++) {
+		for (int j = 300; j < 320; j++) {
+			LCD_DrawDot(i, j, BLACK);
+		}
+	}
+
+
+	LCD_DrawStringwc(0, 300, "  New        Home       Save",YELLOW,BLACK);
+}
+
+void images_menu(void){
+	LCD_OpenWindow(0, 20, 240, 280);
+	image_navbar();
+}
+
+void image_navbar(void){
+	static uint16_t i;
+	static uint16_t j;
+	for (int i = 0; i < 240; i++) {
+		for (int j = 300; j < 320; j++) {
+			LCD_DrawDot(i, j, BLACK);
+		}
+	}
+
+
+	LCD_DrawStringwc(0, 300, "  Next        Home       Prev",YELLOW,BLACK);
+}
+
 
 void show_menu() {
 		update_toolbar();

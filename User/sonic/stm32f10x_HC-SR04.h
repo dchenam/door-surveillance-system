@@ -1,5 +1,5 @@
-#ifndef __PIR_H
-#define __PIR_H
+#ifndef STM32F10X_HC_SR04_H_
+#define STM32F10X_HC_SR04_H_
 
 #include "stm32f10x.h"
 
@@ -47,5 +47,4 @@ void InitHCSR04();
  */
 int32_t HCSR04GetDistance();
 
-
-#endif  /** __PIR_H **/
+#endif /* STM32F10X_HC_SR04_H_ */

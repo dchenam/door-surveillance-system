@@ -2,6 +2,7 @@
 #include "./sccb/sccb.h"
 #include "lcd.h"
 #include <stdio.h>
+#include "./gui/gui.h"
 //#include "./usart/bsp_usart.h"
 
 //Must turn on C99 mode in Keil
@@ -10,10 +11,10 @@ OV7725_MODE_PARAM cam_mode =
 		.QVGA_VGA = 1,
 		.cam_sx = (640 - 320) / 2,
 		.cam_sy = (480 - 240) / 2,
-		.cam_width = 240,
-		.cam_height = 320,
+		.cam_width = 240, // 240
+		.cam_height = 280,  //280
 		.lcd_sx = 0,
-		.lcd_sy = 0,
+		.lcd_sy = 20,
 		.lcd_scan = 6,
 		.light_mode = 0,
 		.saturation = 0,
@@ -541,6 +542,7 @@ void ImagDisp(uint16_t sx, uint16_t sy, uint16_t width, uint16_t height)
 	
 	LCD_OpenWindow(sx, sy, width, height);
 	LCD_Write_Cmd(CMD_SetPixel);
+	//camera_navbar();
 
 	for (i = 0; i < width; i++)
 	{

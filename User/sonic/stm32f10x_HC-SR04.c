@@ -1,11 +1,6 @@
-#include "pir.h"
+#include <stm32f10x_HC-SR04.h>
 
-
-void EnableHCSR04PeriphClock() {
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
-	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);
-}
+extern void EnableHCSR04PeriphClock();
 
 static void initMeasureTimer() {
 	RCC_ClocksTypeDef RCC_ClocksStatus;

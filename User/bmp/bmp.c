@@ -53,7 +53,7 @@ void LCD_Show_BMP(uint16_t x, uint16_t y, char *pic_name)
 	/*-------------------------------------------------------------------------------------------------------*/
 	if (bmpres == FR_OK)
 	{
-		BMP_DEBUG_PRINTF("���ļ��ɹ�\r\n");
+		
 
 		/* ��ȡ�ļ�ͷ��Ϣ  �����ֽ�*/
 		f_read(&bmpfsrc, &fileType, sizeof(WORD), &read_num);
@@ -84,7 +84,7 @@ void LCD_Show_BMP(uint16_t x, uint16_t y, char *pic_name)
 	}
 	/*-------------------------------------------------------------------------------------------------------*/
 	width = bitInfoHead.biWidth;
-	height = bitInfoHead.biHeight;
+	height = bitInfoHead.biHeight-40;
 
 	/* ����λͼ��ʵ�ʿ�Ȳ�ȷ����Ϊ32�ı���	*/
 	l_width = WIDTHBYTES(width * bitInfoHead.biBitCount);

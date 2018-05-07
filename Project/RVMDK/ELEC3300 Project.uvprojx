@@ -599,6 +599,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\User\sdio\sdio_sdcard.c</FilePath>
             </File>
+            <File>
+              <FileName>gui.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\gui\gui.c</FilePath>
+            </File>
+            <File>
+              <FileName>gui.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\User\gui\gui.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
